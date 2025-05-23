@@ -1,2 +1,22 @@
 # CD-PSIICOS
-Toolbox for MEG/EEG connectivity estimation with task-informed leakage suppression
+CD-PSIICOS (Context-Dependent PSIICOS) is a novel framework for MEG/EEG functional connectivity estimation that suppresses spatial leakage while preserving zero-phase coupling, leveraging task-specific cortical power distributions. 
+
+## Features:
+- ...
+- ...
+- ...
+
+## Modules:
+- ...
+
+
+## Example usage
+An example script demonstrating the use of the algorithm is available in `scripts/CD-PSIICOS demo.ipynb`
+
+## Citation
+If you use this code, please cite the following paper:
+
+*Kleeva, D., Ossadtchi A. .....* 
+
+## License
+This project is licensed under the [MIT License](./LICENSE).
