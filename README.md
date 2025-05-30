@@ -1,6 +1,8 @@
 # CD-PSIICOS
 CD-PSIICOS (Context-Dependent PSIICOS) is a novel framework for MEG/EEG functional connectivity estimation that suppresses spatial leakage while preserving zero-phase coupling, leveraging task-specific cortical power distributions. 
 
+This repository is currently being finalized. Core functionality and demos will be uploaded shortly. The full documentation and examples are on the way.
+
 ## Features:
 - ...
 - ...
