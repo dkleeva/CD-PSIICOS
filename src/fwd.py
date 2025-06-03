@@ -1,3 +1,11 @@
+"""
+fwd.py
+============
+Forward modeling  for CD-PSIICOS
+------
+Daria Kleeva — dkleeva@gmail.com
+"""
+
 import numpy as np
 
 def prepare_fwd_2d(fwd, normalize=True):

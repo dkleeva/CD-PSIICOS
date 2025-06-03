@@ -1,3 +1,13 @@
+"""
+conn.py
+
+Utility functions for sensor-level and source-level connectivity analysis
+used in the CD-PSIICOS framework.
+
+------
+Daria Kleeva  —  dkleeva@gmail.com
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import mne
@@ -58,7 +68,6 @@ def compute_sensor_cs(epochs):
 
     return cross_spectrum, analytic_signal, phase_angles
 
-import numpy as np
 
 def build_connectivity_matrix(
     C_ts: np.ndarray,
@@ -94,19 +103,19 @@ def build_connectivity_matrix(
     n_src = pair_idx.max() + 1
     conn_matrix = np.zeros((n_src, n_src))
 
-    # --- time mask ---------------------------------------------------------
+    # --- time mask -------
     win_mask = (times >= tmin) & (times <= tmax)
     if not win_mask.any():
         raise ValueError("No samples fall inside the [tmin, tmax] window.")
 
-    # --- average over the chosen window ------------------------------------
+    # --- average over the chosen window ------
     mean_vals = C_ts[:, win_mask].mean(axis=1)
 
-    # --- fill upper triangle -----------------------------------------------
+    # --- fill upper triangle --------
     for val, (j, i) in zip(mean_vals, pair_idx):
         conn_matrix[i, j] = conn_matrix[j, i] = val
 
-    # --- relative threshold -------------------------------------------------
+    # --- relative threshold --------
     if keep_top < 1.0:
         thr = np.quantile(np.abs(conn_matrix), 1.0 - keep_top)
         conn_matrix[np.abs(conn_matrix) < thr] = 0.0
@@ -117,14 +126,15 @@ def build_connectivity_matrix(
 
 
 
-def plot_pairs_3d(
+def plot_pairs(
     fwd,
     conn_mat: np.ndarray,
-    rel_thr: float = 0.10,
+    rel_thr: float = 0.9,
     subject: str = "fsaverage",
     subjects_dir: str | None = None,
     linewidth: float = 3.0,
     node_size: float = 2.0,
+    edge_cmap: str = "hot"
 ):
     """
     Interactive 3-D visualisation of a source-space connectivity matrix.
@@ -135,9 +145,9 @@ def plot_pairs_3d(
         Forward solution that defines source locations.
     conn_mat : ndarray, shape (n_src, n_src)
         Symmetric connectivity matrix (e.g. output of `build_connectivity_matrix`).
-    rel_thr : float, default 0.10
+    rel_thr : float, default 0.90
         Keep only connections whose absolute value exceeds
-        `rel_thr * max(|conn_mat|)`.  Typical range 0.05–0.20.
+        `rel_thr * max(|conn_mat|)`. 
     subject : str, default "fsaverage"
         Subject ID for MNI conversion (must match `fwd`).
     subjects_dir : str or None
@@ -147,6 +157,8 @@ def plot_pairs_3d(
         Line width of displayed edges.
     node_size : float, default 2.0
         Size of rendered source nodes.
+    edge_cmap : str, default "coolwarm"
+        Matplotlib colormap name for edge colouring.
 
     Returns
     -------
@@ -175,9 +187,16 @@ def plot_pairs_3d(
     thr_val = rel_thr * abs_max
     conn_thr = np.where(np.abs(conn_mat) >= thr_val, conn_mat, 0.0)
 
-    sel = np.abs(conn_thr) > 0
+
+
+    sel = conn_thr > 0           # positive edges that survived threshold
     if sel.any():
-        conn_thr[sel] /= np.abs(conn_thr[sel]).max()
+        w      = conn_thr[sel]
+        w_min  = w.min()
+        w_max  = w.max()
+        conn_thr[sel] = 2 * (w - w_min) / (w_max - w_min) - 1
+
+
 
 
     view = plotting.view_connectome(
@@ -185,7 +204,8 @@ def plot_pairs_3d(
         coords_mni,
         linewidth=linewidth,
         node_size=node_size,
-        colorbar=True,
+        edge_cmap=edge_cmap,
+        colorbar=False,
     )
     return view
 
