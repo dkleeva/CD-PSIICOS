@@ -14,7 +14,7 @@ import mne
 from nilearn import plotting
 
 
-def compute_sensor_cs(epochs):
+def compute_sensor_cs(epochs, UP=None):
     """
     Compute the time-resolved sensor-space cross-spectral matrix 
     from bandpass-filtered epoched MEG/EEG data.
@@ -23,7 +23,9 @@ def compute_sensor_cs(epochs):
     ----------
     epochs : mne.Epochs
         Preprocessed bandpass-filtered epochs with evoked component removed.
-
+    UP: ndarray, shape (n_virtual_sensors, n_original_sensors)
+        The matrix for projection to the space of the virtual sensors
+    
     Returns
     -------
     cross_spectrum : np.ndarray, shape (n_channels**2, n_times)
@@ -33,8 +35,15 @@ def compute_sensor_cs(epochs):
     phase_angles : np.ndarray, shape (n_channels, n_times, n_trials)
         Instantaneous phases of the analytic signal.
     """
-    data = epochs.get_data() 
-    data = np.transpose(data, (1, 2, 0))  
+    data_orig = epochs.get_data() 
+    data=[]
+    if np.max(UP)!=None:
+        for ep_i in range(data_orig.shape[0]):
+            data.append(np.matmul(UP, data_orig[ep_i,:,:]))
+        data=np.array(data)
+    else:
+        data = data_orig.copy()
+    data = np.transpose(data, (1, 2, 0))    
 
     n_channels, n_times, n_trials = data.shape
 

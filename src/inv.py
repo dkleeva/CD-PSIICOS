@@ -99,7 +99,8 @@ def _source_power(cs: np.ndarray) -> float:
     float
         A scalar power measure (used as a weight in CD-PSIICOS).
     """
-    return np.linalg.svd(cs, compute_uv=False)[0]
+    u,s,v = np.linalg.svd(cs)
+    return np.max(s)
 
 
 def power_map_mne(G2d: np.ndarray,
