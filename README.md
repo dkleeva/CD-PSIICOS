@@ -24,6 +24,10 @@ What sets CD-PSIICOS apart is its ability to adapt to the actual power distribut
 - `psiicos.py` — Functions for PSIICOS and CD-PSIICOS projector construction and application
 - `inv.py` - Functions for inverse modeling
 
+<p align="left">
+  <img src="logo/cdpsiicos.png" alt="pipeline" width="500"/>
+</p>
+
 
 ## Example usage
 An example script demonstrating the use of the algorithm is available in `scripts/CD-PSIICOS demo.ipynb`
