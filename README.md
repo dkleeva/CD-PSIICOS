@@ -23,6 +23,7 @@ An example script demonstrating the use of the algorithm is available in `script
 If you use this code, please cite the following paper:
 
 *Kleeva, D., & Ossadtchi, A. (2025). Context-dependent PSIICOS: A novel framework for functional connectivity estimation accounting for task-related power leakage. NeuroImage, 121268* 
+
 *https://doi.org/10.1016/j.neuroimage.2025.121268* 
 
 ## License
