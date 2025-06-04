@@ -25,7 +25,7 @@ What sets CD-PSIICOS apart is its ability to adapt to the actual power distribut
 - `inv.py` - Functions for inverse modeling
 
 <p align="left">
-  <img src="logo/cdpsiicos.png" alt="pipeline" width="500"/>
+  <img src="logo/cdpsiicos.png" alt="pipeline" width="700"/>
 </p>
 
 
