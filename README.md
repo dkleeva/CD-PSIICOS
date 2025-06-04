@@ -6,7 +6,7 @@
   <img src="logo/cd-psiicos-logo.png" width="200"></td>
 <td>
 
-CD-PSIICOS (Context-Dependent PSIICOS) is an advanced Python toolbox for robust MEG/EEG functional connectivity estimation. It builds upon the original PSIICOS framework (Ossadtchi et al., 2018) to suppress spatial leakage while preserving true zero-phase coupling — a critical challenge in source-space analysis.
+CD-PSIICOS (Context-Dependent PSIICOS) (Kleeva & Ossadtchi, 2025) is an advanced Python toolbox for robust MEG/EEG functional connectivity estimation. It builds upon the original PSIICOS framework (Ossadtchi et al., 2018) to suppress spatial leakage while preserving true zero-phase coupling — a critical challenge in source-space analysis.
 
 What sets CD-PSIICOS apart is its ability to adapt to the actual power distribution in the brain, making the estimation of connectivity more selective and interpretable, especially in complex cognitive or clinical paradigms. Whether you're analyzing task-induced dynamics, studying long-range cortical communication, or evaluating connectivity biomarkers in patient populations — this toolbox is for you.
 </td>
